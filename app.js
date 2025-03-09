@@ -93,3 +93,72 @@ function displayCurrentWeather() {
     humidity.textContent = `${current.humidity}%`;
     uvIndex.textContent = current.uv;
 }
+
+// Display air quality data
+function displayAirQuality() {
+    if (!weatherData || !weatherData.current.air_quality) return;
+    
+    const airQuality = weatherData.current.air_quality;
+    
+    pm25Value.textContent = airQuality.pm2_5.toFixed(1);
+    pm10Value.textContent = airQuality.pm10.toFixed(1);
+    no2Value.textContent = airQuality.no2.toFixed(1);
+    o3Value.textContent = airQuality.o3.toFixed(1);
+    so2Value.textContent = airQuality.so2.toFixed(1);
+    
+    // AQI value and status
+    aqiValue.textContent = airQuality.aqi;
+    
+    // Set AQI gauge fill width and status text
+    let aqiPercentage = (airQuality.aqi / 500) * 100;
+    aqiGaugeFill.style.width = `${Math.min(aqiPercentage, 100)}%`;
+    
+    if (airQuality.aqi <= 50) {
+        aqiStatus.textContent = 'Good';
+        aqiStatus.style.color = '#4CAF50';
+    } else if (airQuality.aqi <= 100) {
+        aqiStatus.textContent = 'Moderate';
+        aqiStatus.style.color = '#FFEB3B';
+    } else if (airQuality.aqi <= 150) {
+        aqiStatus.textContent = 'Unhealthy for Sensitive Groups';
+        aqiStatus.style.color = '#FF9800';
+    } else if (airQuality.aqi <= 200) {
+        aqiStatus.textContent = 'Unhealthy';
+        aqiStatus.style.color = '#FF5252';
+    } else if (airQuality.aqi <= 300) {
+        aqiStatus.textContent = 'Very Unhealthy';
+        aqiStatus.style.color = '#9C27B0';
+    } else {
+        aqiStatus.textContent = 'Hazardous';
+        aqiStatus.style.color = '#7B1FA2';
+    }
+}
+
+// Display hourly forecast
+function displayHourlyForecast() {
+    if (!weatherData || !weatherData.forecast || !weatherData.forecast.forecastday) return;
+    
+    // Clear previous data
+    hourlyContainer.innerHTML = '';
+    
+    // Get today's hourly forecast
+    const today = weatherData.forecast.forecastday[0];
+    
+    // Create and append hourly items
+    today.hour.forEach(hourData => {
+        const hourlyItem = document.createElement('div');
+        hourlyItem.className = 'hourly-item';
+        
+        const time = hourData.time.split(' ')[1] || hourData.time;
+        const temp = isCelsius ? `${hourData.temp_c}°C` : `${hourData.temp_f}°F`;
+        
+        hourlyItem.innerHTML = `
+            <p>${time}</p>
+            <img src="images/${hourData.condition.icon}" alt="${hourData.condition.text}">
+            <p>${temp}</p>
+            <p>${hourData.humidity}%</p>
+        `;
+        
+        hourlyContainer.appendChild(hourlyItem);
+    });
+}
