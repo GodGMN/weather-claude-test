@@ -162,3 +162,101 @@ function displayHourlyForecast() {
         hourlyContainer.appendChild(hourlyItem);
     });
 }
+
+// Display daily forecast
+function displayDailyForecast() {
+    if (!weatherData || !weatherData.forecast || !weatherData.forecast.forecastday) return;
+    
+    // Clear previous data
+    dailyContainer.innerHTML = '';
+    
+    // Get forecast days
+    const forecastDays = weatherData.forecast.forecastday;
+    
+    // Create and append daily items
+    forecastDays.forEach(dayData => {
+        const date = new Date(dayData.date);
+        const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+        const monthDay = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        
+        const maxTemp = isCelsius ? `${dayData.day.maxtemp_c}°C` : `${dayData.day.maxtemp_f}°F`;
+        const minTemp = isCelsius ? `${dayData.day.mintemp_c}°C` : `${dayData.day.mintemp_f}°F`;
+        
+        const dailyItem = document.createElement('div');
+        dailyItem.className = 'daily-item';
+        
+        dailyItem.innerHTML = `
+            <div class="daily-date">
+                <p>${dayName}</p>
+                <p>${monthDay}</p>
+            </div>
+            <div class="daily-condition">
+                <img src="images/${dayData.day.condition.icon}" alt="${dayData.day.condition.text}">
+                <p>${dayData.day.condition.text}</p>
+            </div>
+            <div class="daily-temp">
+                <p class="max">${maxTemp}</p>
+                <p class="min">${minTemp}</p>
+            </div>
+        `;
+        
+        dailyContainer.appendChild(dailyItem);
+    });
+}
+
+// Display astronomical info
+function displayAstroInfo() {
+    if (!weatherData || !weatherData.forecast || !weatherData.forecast.forecastday) return;
+    
+    const today = weatherData.forecast.forecastday[0];
+    
+    if (today.astro) {
+        sunriseTime.textContent = today.astro.sunrise;
+        sunsetTime.textContent = today.astro.sunset;
+        moonPhase.textContent = today.astro.moonphase;
+    }
+}
+
+// Toggle temperature unit
+function toggleTemperatureUnit(unit) {
+    if (unit === 'celsius' && !isCelsius) {
+        isCelsius = true;
+        celsiusBtn.classList.add('active');
+        fahrenheitBtn.classList.remove('active');
+    } else if (unit === 'fahrenheit' && isCelsius) {
+        isCelsius = false;
+        fahrenheitBtn.classList.add('active');
+        celsiusBtn.classList.remove('active');
+    } else {
+        return; // No change needed
+    }
+    
+    // Update displayed data with new unit
+    displayCurrentWeather();
+    displayHourlyForecast();
+    displayDailyForecast();
+}
+
+// Search functionality (this would connect to a real API in a production app)
+function searchCity() {
+    const cityToSearch = cityInput.value.trim();
+    
+    if (cityToSearch) {
+        // In a real app, we would fetch data from a weather API here
+        // For this mock app, we'll just update the city name
+        cityName.textContent = cityToSearch;
+        cityInput.value = '';
+        
+        // Show a notification
+        alert(`In a real app, we would load weather data for ${cityToSearch}. Using mock data for now.`);
+    }
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', initApp);
+searchBtn.addEventListener('click', searchCity);
+cityInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') searchCity();
+});
+celsiusBtn.addEventListener('click', () => toggleTemperatureUnit('celsius'));
+fahrenheitBtn.addEventListener('click', () => toggleTemperatureUnit('fahrenheit'));
