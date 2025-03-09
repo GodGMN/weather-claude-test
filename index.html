@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weather Forecast</h1>
+            <div class="search-container">
+                <input type="text" id="city-input" placeholder="Search for a city...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+        </header>
+
+        <main>
+            <section class="current-weather">
+                <div class="city-info">
+                    <h2 id="city-name">Madrid</h2>
+                    <p id="current-date">Sunday, 9 March 2025</p>
+                </div>
+                <div class="weather-info">
+                    <div class="temperature">
+                        <h2 id="current-temp">18.5°C</h2>
+                        <p id="feels-like">Feels like: 17.2°C</p>
+                    </div>
+                    <div class="weather-condition">
+                        <img id="weather-icon" src="images/partly-cloudy.svg" alt="Weather Icon">
+                        <p id="condition-text">Partly cloudy</p>
+                    </div>
+                </div>
+                <div class="weather-details">
+                    <div class="detail">
+                        <i class="fas fa-wind"></i>
+                        <div>
+                            <p class="detail-label">Wind</p>
+                            <p id="wind-speed">15.1 km/h</p>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <i class="fas fa-compass"></i>
+                        <div>
+                            <p class="detail-label">Direction</p>
+                            <p id="wind-dir">NE</p>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <i class="fas fa-tint"></i>
+                        <div>
+                            <p class="detail-label">Humidity</p>
+                            <p id="humidity">62%</p>
+                        </div>
+                    </div>
+                    <div class="detail">
+                        <i class="fas fa-sun"></i>
+                        <div>
+                            <p class="detail-label">UV Index</p>
+                            <p id="uv-index">5</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="air-quality">
+                <h3>Air Quality</h3>
+                <div class="aqi-container">
+                    <div class="aqi-gauge">
+                        <div id="aqi-gauge-fill"></div>
+                    </div>
+                    <div class="aqi-details">
+                        <p>AQI: <span id="aqi-value">48</span></p>
+                        <p>Status: <span id="aqi-status">Good</span></p>
+                    </div>
+                </div>
+                <div class="pollutants">
+                    <div class="pollutant">
+                        <p>PM2.5</p>
+                        <p id="pm2_5-value">8.4</p>
+                    </div>
+                    <div class="pollutant">
+                        <p>PM10</p>
+                        <p id="pm10-value">12.6</p>
+                    </div>
+                    <div class="pollutant">
+                        <p>NO2</p>
+                        <p id="no2-value">10.2</p>
+                    </div>
+                    <div class="pollutant">
+                        <p>O3</p>
+                        <p id="o3-value">68.3</p>
+                    </div>
+                    <div class="pollutant">
+                        <p>SO2</p>
+                        <p id="so2-value">3.1</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="hourly-forecast">
+                <h3>Hourly Forecast</h3>
+                <div class="hourly-container" id="hourly-container">
+                    <!-- Hourly forecast items will be inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <section class="daily-forecast">
+                <h3>5-Day Forecast</h3>
+                <div class="daily-container" id="daily-container">
+                    <!-- Daily forecast items will be inserted here by JavaScript -->
+                </div>
+            </section>
+
+            <section class="sun-moon">
+                <h3>Sun & Moon</h3>
+                <div class="astro-info">
+                    <div class="astro-item">
+                        <i class="fas fa-sun"></i>
+                        <div>
+                            <p>Sunrise</p>
+                            <p id="sunrise-time">07:43 AM</p>
+                        </div>
+                    </div>
+                    <div class="astro-item">
+                        <i class="fas fa-moon"></i>
+                        <div>
+                            <p>Sunset</p>
+                            <p id="sunset-time">07:12 PM</p>
+                        </div>
+                    </div>
+                    <div class="astro-item">
+                        <i class="fas fa-star-and-crescent"></i>
+                        <div>
+                            <p>Moon Phase</p>
+                            <p id="moon-phase">Waning Gibbous</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Created by Weather Claude Test | <span id="current-year">2025</span></p>
+            <div class="unit-toggle">
+                <button id="celsius-btn" class="active">°C</button>
+                <button id="fahrenheit-btn">°F</button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
