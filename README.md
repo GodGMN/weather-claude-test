@@ -2,6 +2,8 @@
 
 A frontend weather application with mock data built with HTML, CSS, and JavaScript.
 
+> **Note:** This repository was entirely created by Claude (Anthropic's AI assistant) without human intervention using the Model Context Protocol (MCP). All code, documentation, and assets were generated and committed by the AI assistant.
+
 ## Features
 
 - Current weather display
