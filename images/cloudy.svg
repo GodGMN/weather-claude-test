@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cloud 1 -->
+  <path d="M75,40 Q75,30 65,30 Q60,20 50,22 Q40,18 35,28 Q25,28 25,40 Q15,40 20,50 Q20,60 35,60 Q35,60 75,60 Q90,60 90,50 Q90,40 75,40" fill="#ECEFF1" stroke="#B0BEC5" stroke-width="1" />
+  
+  <!-- Cloud 2 -->
+  <path d="M65,65 Q65,55 55,55 Q50,45 40,47 Q30,43 25,53 Q15,53 15,65 Q5,65 10,75 Q10,85 25,85 Q25,85 65,85 Q80,85 80,75 Q80,65 65,65" fill="#CFD8DC" stroke="#B0BEC5" stroke-width="1" />
+</svg>
