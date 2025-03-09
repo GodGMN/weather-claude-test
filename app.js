@@ -31,3 +31,65 @@ const fahrenheitBtn = document.getElementById('fahrenheit-btn');
 // State
 let weatherData = null;
 let isCelsius = true;
+
+// Initialize the app
+async function initApp() {
+    try {
+        // Normally we would fetch from an API, but we're using mock data
+        const response = await fetch('weatherData.json');
+        weatherData = await response.json();
+        
+        // Display data
+        displayCurrentWeather();
+        displayAirQuality();
+        displayHourlyForecast();
+        displayDailyForecast();
+        displayAstroInfo();
+        
+        // Set current year in footer
+        currentYear.textContent = new Date().getFullYear();
+    } catch (error) {
+        console.error('Error initializing app:', error);
+    }
+}
+
+// Format date
+function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric' 
+    });
+}
+
+// Display current weather data
+function displayCurrentWeather() {
+    if (!weatherData) return;
+    
+    const current = weatherData.current;
+    const location = weatherData.location;
+    
+    cityName.textContent = location.name;
+    currentDate.textContent = formatDate(new Date());
+    
+    // Display temperature based on unit preference
+    if (isCelsius) {
+        currentTemp.textContent = `${current.temp_c}°C`;
+        feelsLike.textContent = `Feels like: ${current.feelslike_c}°C`;
+    } else {
+        currentTemp.textContent = `${current.temp_f}°F`;
+        feelsLike.textContent = `Feels like: ${current.feelslike_f}°F`;
+    }
+    
+    // Set weather icon (in a real app, this would be a real image path)
+    weatherIcon.src = `images/${current.condition.icon}`;
+    weatherIcon.alt = current.condition.text;
+    
+    conditionText.textContent = current.condition.text;
+    windSpeed.textContent = isCelsius ? `${current.wind_kph} km/h` : `${current.wind_mph} mph`;
+    windDir.textContent = current.wind_dir;
+    humidity.textContent = `${current.humidity}%`;
+    uvIndex.textContent = current.uv;
+}
